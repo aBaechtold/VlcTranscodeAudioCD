@@ -10,15 +10,15 @@ It uses meta data look up to get the track titles (using VLC) and transcodes the
 * PowerShell
   
 ## Usage
-1. Ensure audio device (CD player) is attached to machine and ready.
-2. Ensure the audio CD is in the audio device.
+1. Ensure CD player (audio device) is attached to machine and ready.
+2. Ensure the audio CD is in the CD player.
 3. Open a PowerShell console.
 4. Source the script e.g. ```. {path to script (*.ps1)}```.
 5. Run command ```TranscodeAudioCD "{audio device e.g. D:}" "{output directory}"```. This uses the stream MRL: 'cdda:///{audio device}'.
 
 __Beware: Any pending VLC process (vlc.exe) is stopped by the script!__
 
-Complete example:
+Example:
 ```
 PS C:\Users\MrX>  . C:\Temp\TrancodeAudioCD.ps1
 PS C:\Users\MrX> TranscodeAudioCD "D:" "C:\Temp"
@@ -42,17 +42,18 @@ PS C:\Users\MrX>
 
 ## Remarks
 
-* The PowerShell script obviously targets the Windows OS. There also Windows specifics related to stream MRL syntax and path handling. They need to be adjusted for other OSs e.g. Linux.
-* Currently the audio settings are hard-coded to MP3. Adjust as needed. Refer to [VLC Wiki](https://wiki.videolan.org) for information and ```vlc.exe --help``` / ```vlc.exe -H``` for commad line details.
+* The PowerShell script obviously targets the Windows OS. There also Windows specifics related to stream MRL syntax and path handling. They need to be adjusted for different target OSs (like Linux).
+* Currently the audio settings are hard-coded to MP3. Adjust as needed. Refer to [VLC Wiki](https://wiki.videolan.org) for information and ```vlc.exe --help``` / ```vlc.exe -H``` for command line details.
 * Tested with PowerShell 5.1.22621.4391.
 
 Other approaches I used in the past or know of:
 
-* The simplest form of transcodeing, which is also documented on https://wiki.videolan.org/Transcode/, is to transcode the audio CD using the command line (either remote or no interface).
+* The simplest form of transcoding, which is also documented on https://wiki.videolan.org/Transcode/, is to transcode the audio CD using the command line (either remote or no interface).
   This creates a single large file (track) that contains the entire audio CD. Depending on the use case, this is fine. In my case I found it difficult on some devices to fast-forward to the desired location.
-  The web page also outlines a batch-approach using a Bash script, similar to the PowerShell script here.
+  The web page also outlines a batch-approach using a Bash script, like the PowerShell script here.
   
 * There is a Lua extension (OMG.lua) that can be used to get track titles and convert it to MP3 or similar.
-  It works by loading the audio CD first, then invoke the extension which shows dialog window to review the collected meta data and initiate transcoding.
-  Works fairly well, but is a semi-automated solution and I had issue with the titles (e.g. German 'Umlaute').
+  It works by loading the audio CD first in VLC, then invoke the extension which shows a dialog window to review the collected meta data and initiate transcoding from there.
+  Works well, but is a semi-automated solution and I had issue with the titles (e.g. German 'Umlaute').
+
   Reference: https://gist.github.com/zcot/bc9f349f7507ae4d645bbf31065738e2
